@@ -8,6 +8,6 @@
 
 ## Thank you
 
-* Michael Bodnarchuk @davert
-* Rate this talk **https://joind.in/talk/071e9**
-* http://codeception
+* **Michael Bodnarchuk** @davert
+* Consultant at **[SDCLabs](http://sdclabs.com)**
+* Codeception is here: [http://codeception.com](http://codeception.com)

@@ -1,45 +1,56 @@
+body {
+  background: #27ae60;
+}
+
+body .reveal section {
+  background: #fff;
+}
+
 body .reveal h1 {
-  font-family: 'Yantramanav';
+  font-family: 'Droid Serif', serif;
   font-weight: bold;
-  text-shadow: 0px 2px 2px #333;
+  // text-shadow: 0px 2px 2px #ccc;
 }
 
 body .reveal h1 {
   font-size: 2em; 
   font-weight: bold;
+  color: #27ae60;
 }
 
 body .reveal h2 {
-  font-family: 'Yantramanav';
+  font-family: 'Droid Serif', serif;
   font-size: 1.11em;
   font-weight: bold; 
-  color: #f1c40f;
-  text-shadow: 0px 2px 2px #333;
+  color: #27ae60;
+  // color: #f1c40f;
+  // text-shadow: 0px 2px 2px #ccc;
 }
 
 body .reveal h3 {
-  font-family: 'Yantramanav';
+  font-family: 'Droid Serif', serif;
   font-weight: bold; 
-  font-size: 1em; 
-  color: #fff;
-  text-shadow: 0px 2px 2px #333;
+  font-size: 1em;
+  color: #16a085; 
+  // color: #fff;
+  // text-shadow: 0px 2px 2px #ccc;
 }
 
 body .reveal h4 {
-  font-family: 'Yantramanav';  
+  font-family: 'Droid Serif', serif;  
   font-weight: bold; 
   font-size: 0.9em; 
-  color: #fff;  
-  text-shadow: 0px 2px 2px #333;
+  // color: #fff;  
+  // text-shadow: 0px 2px 2px #333;
 }
 
 body .reveal {
-  color: white;
+  // color: white;
   font-family: 'Yantramanav';
 }
 
 body .reveal a {
- color: #eee;
+ // color: #eee;
  text-decoration: underline; 
 }
 
@@ -55,4 +66,9 @@ body .reveal img {
 
 body .reveal ul {
   line-height: 2;
+}
+
+body .reveal pre code {
+  background: #efefef;
+  color: #333;
 }

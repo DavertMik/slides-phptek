@@ -1,5 +1,7 @@
-# Modern Testing With Codeception
+## Modern Testing With Codeception
+
+![](http://codeception.com/images/logo.svg)
 
 ### Tips & Tricks
 
-BGPHP 2016
+PHPCE 2017

@@ -9,25 +9,32 @@
 * **full stack** testing framework
 * modules to solve **90% of common tasks**
 * **unified APIs** for all modules
-* **~3M** installations on Packagist
+* **>6M** installations on Packagist
+* PhpStorm integration
 
 ---
 
-## It fits for
+## Let's Install It!
 
-* Browser Tests (WebDriver, PHPBrowser over Guzzle)
-* Framework Request/Response tests (Symfony/Laravel/etc)
-* API tests (SOAP, REST)
-* Database Tests (Db, MongoDb, Doctrine, Eloquent)
+![](img/codecept_bootstrap.gif)
+
+---
+
+# Type of Tests
+
+* **acceptance** - outer scenario-driven tests
+* **functional** - inner scenario-driven tests
+* **integration / unit** - inner code tests
 
 ---
 
 ## Acceptance Tests
 
-* Check the real user experience (UI/UX)
-* Work using browser through Selenium
+* Execute tests **inside a browser** using Selenium
+* Check the user experience (UI/UX)
 * Require database, webserver
 * JavaScript included
+* Written in scenario driven manner
 
 ---
 
@@ -61,17 +68,52 @@ via [@polevaultweb](https://deliciousbrains.com/codeception-automate-wordpress-p
 
 ---
 
+
+## Scenario-Driven Tests
+
+```php
+public function viewTask(AcceptanceTester $I, 
+  \Page\Task $taskPage)
+{    
+  // create initial data
+  $this->taskId = $taskPage->createTask('Finish the test'); 
+  $I->amOnPage($tasksPage->rootUrl); // move to page
+  $I->see('Displaying 1-1 of 1 result.','.summary');
+  $I->click($taskPage->viewButton); // using PageObject
+  $I->see('Finish the test', 'h2'); 
+}
+```
+
+---
+
+## Step by Step Output
+
+```
+Test: view task
+Scenario --
+  \Page\TaskPage: createTask                      
+     I am on page "/tasks"
+     I click 'Add Task'
+     I fill field 'To do', 'Finish the test'
+     I click 'Create'               
+  I see 'Displaying 1-1 of 1 result.','.summary'
+  I click { css: 'a.view'}
+  I see 'Finish the test', 'h2'
+```
+
+---
+
+
 ## Functional tests
 
 * Tests HTTP requests/HTML responses
-* Perform multiple requests in a row
 * Require corresponding framework module
-* Use framework's ORM, DI, Auth
+* Access framework's ORM, DI, Auth
 * Written in scenario driven manner
 
 ---
 
-#### Yii2 Example
+### Yii2 Example
 
 ```php
 // logging in as admin
@@ -94,7 +136,6 @@ $I->seeRecord('common\models\Task', [
 ## Unit Tests
 
 * Are the same as in PHPUnit
-* To test components in isolation
 * Codeception is built on top of PHPUnit
 * Just copy your tests to `tests/unit` directory
 
@@ -103,7 +144,6 @@ $I->seeRecord('common\models\Task', [
 ## Integration Tests
 
 * PHPUnit tests enhanced with Codeception modules
-* Tests integration between components and external services
 * You can use DI and ORM inside of them
 
 ---
@@ -111,25 +151,26 @@ $I->seeRecord('common\models\Task', [
 ### Laravel Example
 
 ```php
-class UserTest extends \Codeception\TestCase\Test
-{
-    /**
-     * @var \UnitTester
-     */
-    protected $tester;
-    public function testRegister()
-    {
-        $email = 'johndoe@example.com';
-        $password = Hash::make('password');
-        User::register(['email' => $email, 'password' => $password]);
-        $this->tester->seeRecord('users', ['email' => $email, 'password' => $password]);
-    }
-}
+// arrange
+$tests = $I->haveMultiple('Test', 3, [
+    'status' => 'success']);
+$test = $tests[0];
+$build = $I->have('Build', ['project_id' => $this->project->id]);
+$I->have('TestBuild', [
+    'build_id' => $build->id,
+    'test_id' => $test->id,
+    'success' => false]
+);
+// act
+$build->finish();
+// assert
+$I->assertEquals(Status::FAIL, $test->status);
+$I->assertEquals(Status::FAIL, $this->project->status);
 ```
 
 ---
 
-## API Tests
+## API Tests (Outer or Inner)
 
 * Can be executed inside a framework or over HTTP
 * REST/SOAP/XML-RPC/Facebook modules
@@ -202,7 +243,7 @@ $I->seeResponseMatchesJsonType([
 
 ---
 
-## BDD Tests
+## BDD Tests (Outer or Inner)
 
 * Business specifications written by examples
 * Example scenarios in plain English (Cucumber, Behat)
@@ -225,7 +266,24 @@ Feature: content
 
   Scenario: Create an Article
     Given There is a add content link
-    When I create new content with field title as "My_Article" and content as a "This is my first article"
+    When I create new content with title "My_Article"
     And I save an article
     Then I should see the "Article successfully saved." message
+```
+
+---
+
+### BDD Step Implementation
+
+```php
+/**
+ * @When I create new content with :title
+ */
+public function iCreateNewContent($title)
+{
+  $I = $this->i;
+  $I->fillField(self::$title, $title);
+  $I->scrollTo(['css' => 'div.toggle-editor']);
+  $I->click(self::$toggleEditor);
+}            
 ```

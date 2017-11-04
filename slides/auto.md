@@ -6,8 +6,18 @@
 
 ---
 
+### Black Box (outer) vs White Box (inner)
+
+![](img/box.png)
+
+---
+
 ![](img/pyramid.png)
 
 ---
 
-![](img/pros-cons.svg)
+## How to implement tests for all levels?
+
+---
+
+![](img/ring.png)

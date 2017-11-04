@@ -2,39 +2,6 @@
 
 ---
 
-## PageObjects 
-
-* contain locators for UI elements
-* contain logic for page ineteraction
-* can be autowired via DI
-
----
-
-```php
-class Task
-{
-    function __construct(\AcceptanceTester $I) {
-        $this->tester = $I;
-    }
-    // routes
-    public static $rootUrl  = '/tasks';
-    public static $addUrl  = '/tasks/add/';
-
-    // UI elements
-    public $viewButton = ['css' => 'a.view'];
-    
-    // actions
-    public function createTask()
-    { 
-      $I = $this->tester;
-      $I->amOnPage(self::$addUrl);
-      // ...
-    }
-}
-```
-
----
-
 ## Cest Files
 
 * **Recommended** for scenario-driven tests
@@ -63,6 +30,50 @@ public function viewTask(AcceptanceTester $I,
   $I->see('Displaying 1-1 of 1 result.','.summary');
   $I->click($taskPage->viewButton); // using PageObject
   $I->see($example[0] . ' Description', 'h2'); 
+}
+```
+
+---
+
+
+## Create Custom DSL
+
+```php
+$user = $I->haveUser('davert');
+$comment = $I->haveComment(['author' => $user->id]);
+$I->assertEquals($comment->author->id, $user->id);
+```
+
+---
+
+## PageObjects 
+
+* contain locators for UI elements
+* contain logic for page ineteraction
+* can be autowired via DI
+
+---
+
+```php
+class Task
+{
+    function __construct(\AcceptanceTester $I) {
+        $this->tester = $I;
+    }
+    // routes
+    public static $rootUrl  = '/tasks';
+    public static $addUrl  = '/tasks/add/';
+
+    // UI elements
+    public $viewButton = ['css' => 'a.view'];
+    
+    // actions
+    public function createTask()
+    { 
+      $I = $this->tester;
+      $I->amOnPage(self::$addUrl);
+      // ...
+    }
 }
 ```
 
@@ -118,4 +129,16 @@ $I->submitForm('#loginForm', [
 $I->saveSessionSnapshot('login');
 
 ```
+
+---
+
+## SmartWait in Selenium
+
+Use `smartwait` option and explicit locators:
+
+```php
+$I->click(['css' => 'button[name=submit]'])
+$I->see('Thanks for your submission', '.message');
+```
+
 
