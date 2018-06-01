@@ -9,5 +9,5 @@
 ## Thank you
 
 * **Michael Bodnarchuk** @davert
-* Consultant at **[SDCLabs](http://sdclabs.com)**
+* Official Codeception support by **[SDCLabs](http://sdclabs.com)**
 * Codeception is here: [http://codeception.com](http://codeception.com)

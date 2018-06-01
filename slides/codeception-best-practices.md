@@ -141,4 +141,77 @@ $I->click(['css' => 'button[name=submit]'])
 $I->see('Thanks for your submission', '.message');
 ```
 
+---
 
+## Pause Selenium Execution on Failure
+
+```php
+public function _failed(AcceptanceTester $I)
+{
+    $I->pauseExecution();
+}
+```
+
+---
+
+## Use @depends to reorder your tests
+
+* Ensure positive scenario is passed
+* Pass data between tests (not recommended)
+
+```php
+/**
+ * @depends submitForm
+ */
+public function submitFormWithFailedValidation()
+{
+
+}
+```
+
+---
+
+## Use HTML reports on CI
+
+```
+codecept run --html
+```
+
+![](img/report.png)
+
+Also, check out [Recorder extension](https://codeception.com/extensions#Recorder)
+
+---
+
+### For Business Logic Unit Tests use DomainAssert
+
+[github.com/codeception/domainassert](https://github.com/codeception/domainassert)
+
+```php
+<?php
+$this->assertUserIsValid($user);
+$this->assertRequestCanBeProcessed($request);
+$this->assertUserCanCheckout($user, $request);
+```
+
+failure output:
+
+```
+Failed asserting that `user.isValid()`.
+[user]: User Object &000000005689696e000000004066036e (
+    'role' => 'guest'
+)
+```
+
+---
+
+### AspectMock
+
+*Should have been placed into Bad Practices section...*
+
+```php
+$this->assertEquals('1111', Config::get()); 
+$userModel = test::double('Config', ['get' => '2222']);
+$this->assertEquals('2222', Config::get());
+$userModel->verifyInvoked('get'); 
+```

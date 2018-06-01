@@ -9,7 +9,7 @@
 * **full stack** testing framework
 * modules to solve **90% of common tasks**
 * **unified APIs** for all modules
-* **>6M** installations on Packagist
+* **>8M** installations on Packagist
 * PhpStorm integration
 
 ---
@@ -225,24 +225,6 @@ $I->seeResponseContainsJson([
 
 ---
 
-
-```php
-// check the structure of response
-$I->seeResponseMatchesJsonType([
-'ticket' => [
-  'id' => 'integer',
-  'description' => 'string|null',
-  'priority' => 'string',
-  'created_at' => 'string:date',
-  'reporter_info' => [
-    'email' => 'string:email'
-  ]
-]]);
-
-```
-
----
-
 ## BDD Tests (Outer or Inner)
 
 * Business specifications written by examples
@@ -287,3 +269,4 @@ public function iCreateNewContent($title)
   $I->click(self::$toggleEditor);
 }            
 ```
+

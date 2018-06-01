@@ -1,9 +1,9 @@
 body {
-  background: #27ae60;
+  background: #eee;
 }
 
-body .reveal section {
-  background: #fff;
+body .reveal {
+  background: #eee;
 }
 
 body .reveal h1 {

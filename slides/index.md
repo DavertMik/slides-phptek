@@ -4,4 +4,4 @@
 
 ### Tips & Tricks
 
-PHPCE 2017
+PHPTek 2018
